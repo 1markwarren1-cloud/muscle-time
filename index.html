@@ -3,35 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0e0f13">
+<meta name="theme-color" content="#15191c">
 <title>Muscle Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Muscle Time">
 <style>
   :root{
-    --bg:#0e0f13; --bg2:#15171e; --card:#1b1e27; --card2:#222633;
-    --line:#2c3140; --text:#eef1f7; --muted:#9aa3b5; --muted2:#6b7384;
-    --accent:#ff5d9e; --accent2:#6aa8ff; --good:#37d39b; --bad:#ff5d6c; --blue:#6aa8ff;
+    --bg:#15191c; --bg2:#1b2024; --card:#1e242a; --card2:#262d34;
+    --line:#2d363d; --text:#e7edf0; --muted:#9aa9b1; --muted2:#6d7d85;
+    --accent:#6fb6a6; --accent2:#86acd2; --good:#79c2a6; --bad:#d98a8a; --blue:#86acd2;
     --r:16px; --maxw:680px;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
   html,body{margin:0; padding:0}
   body{background:var(--bg); color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    padding-bottom:150px; line-height:1.45;}
+    font-family:"Raleway",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding-bottom:150px; line-height:1.55; letter-spacing:.1px; -webkit-font-smoothing:antialiased;}
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 16px}
-  header{position:sticky; top:0; z-index:20; background:linear-gradient(180deg,var(--bg) 70%,rgba(14,15,19,0));
+  header{position:sticky; top:0; z-index:20; background:var(--bg);
     padding:max(14px,env(safe-area-inset-top)) 0 8px;}
   .brand{display:flex; align-items:center; gap:10px; padding:0 16px; max-width:var(--maxw); margin:0 auto}
-  .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));
-    display:grid;place-items:center;font-size:17px}
-  .brand h1{font-size:19px; margin:0; letter-spacing:.2px; font-weight:750}
+  .logo{width:30px;height:30px;border-radius:9px;overflow:hidden;flex-shrink:0}
+  .logo svg{display:block;width:100%;height:100%}
+  .brand h1{font-size:19px; margin:0; letter-spacing:.3px; font-weight:600}
   .brand .sub{font-size:11.5px;color:var(--muted2);margin-top:-2px}
 
   .grouphdr{display:flex;align-items:center;gap:8px;margin:22px 2px 10px}
-  .grouphdr span{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent2);font-weight:800}
+  .grouphdr span{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:600}
   .grouphdr .ln{flex:1;height:1px;background:var(--line)}
 
   .wkbtn{width:100%;display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--line);
-    color:var(--text);border-radius:14px;padding:13px 15px;cursor:pointer;margin:2px 0 14px}
+    color:var(--text);border-radius:18px;padding:13px 15px;cursor:pointer;margin:2px 0 12px}
+  .wktoolbar{position:sticky;top:var(--headh,60px);z-index:15;background:var(--bg);padding-top:6px}
+  .wktoolbar .sessprog{margin-bottom:12px}
   .wkbtn .ico{font-size:22px} .wkbtn .wkmid{flex:1;min-width:0;text-align:left}
   .wkbtn .nm{display:block;font-weight:750;font-size:16px}
   .wkbtn .sub2{display:block;font-size:11.5px;color:var(--muted2);margin-top:1px}
@@ -54,7 +67,7 @@
   .ex-prog .goalv{color:var(--accent2);font-weight:750}
   .levelup{margin-top:5px;font-size:11.5px;color:var(--good);font-weight:700}
   .ex-name .exdone{display:none;color:var(--good);margin-left:7px}
-  .cardDone{border-color:rgba(55,211,155,.45);background:#13211c}
+  .cardDone{border-color:rgba(121,194,166,.4);background:#192420}
   .cardDone .ex-name .exdone{display:inline}
 
   table.sets{width:100%;border-collapse:collapse;margin-top:12px}
@@ -68,8 +81,8 @@
   input.num:focus{border-color:var(--accent)}
   .sets{margin-top:12px;display:flex;flex-direction:column;gap:8px}
   .setrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;row-gap:6px}
-  .startbtn{background:var(--card2);border:1px solid var(--accent);color:var(--accent2);border-radius:10px;
-    padding:9px 12px;font-size:13px;font-weight:700;cursor:pointer;min-width:74px;text-align:center;font-variant-numeric:tabular-nums}
+  .startbtn{background:var(--card2);border:1px solid var(--accent);color:var(--accent2);border-radius:999px;
+    padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer;min-width:74px;text-align:center;font-variant-numeric:tabular-nums}
   .startbtn.running{background:var(--accent);color:#fff;border-color:var(--accent)}
   .setn2{font-size:12.5px;font-weight:700;color:var(--muted);min-width:40px}
   .prev2{font-size:10.5px;color:var(--muted2);min-width:52px;line-height:1.1}
@@ -77,14 +90,14 @@
   .inwrap input.num{width:54px;max-width:54px;padding:9px 5px}
   .unit{font-size:12px;color:var(--muted2);font-weight:600}
   .setrow .done{margin-left:auto}
-  .done{width:42px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);
+  .done{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);
     color:var(--muted2);font-size:16px;display:inline-grid;place-items:center;cursor:pointer}
   .done.on{background:var(--good);border-color:var(--good);color:#06241a;font-weight:800}
   .rowtools{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
-  .mini{background:none;border:1px solid var(--line);color:var(--muted);border-radius:9px;padding:6px 10px;font-size:12px;cursor:pointer}
+  .mini{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 13px;font-size:12px;cursor:pointer}
   .mini:active{background:var(--card2)}
 
-  .btn{display:block;width:100%;border:none;border-radius:13px;padding:15px;font-size:16px;font-weight:750;cursor:pointer;color:#fff;
+  .btn{display:block;width:100%;border:none;border-radius:999px;padding:15px;font-size:16px;font-weight:650;cursor:pointer;color:#13302a;
     background:linear-gradient(135deg,var(--accent),var(--accent2))}
   .btn:active{filter:brightness(.94)}
   .btn.ghost{background:var(--card);border:1px solid var(--line);color:var(--text)}
@@ -94,7 +107,7 @@
 
   .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:6px}
   .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px}
-  .stat .v{font-size:24px;font-weight:800;letter-spacing:.3px}
+  .stat .v{font-size:24px;font-weight:600;letter-spacing:.3px}
   .stat .k{font-size:11px;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
   .stat .v.accent{color:var(--accent)} .stat .v.blue{color:var(--blue)}
   .stat .d{font-size:11px;font-weight:700;margin-top:3px}
@@ -128,7 +141,7 @@
   .chart text{font-size:9px;fill:var(--muted2)}
 
   /* PLAN */
-  .plan-intro{background:linear-gradient(135deg,#241008,#1b1e27);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:6px}
+  .plan-intro{background:linear-gradient(135deg,#1f2a28,#1b2024);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:6px}
   .plan-intro h3{margin:0 0 6px;font-size:17px}
   .plan-intro p{margin:0;font-size:12.5px;color:var(--muted)}
   .plan-intro .pills{margin-top:10px}
@@ -156,11 +169,11 @@
   #restbar{position:fixed;left:0;right:0;z-index:29;bottom:calc(60px + env(safe-area-inset-bottom));display:none;justify-content:center;pointer-events:none}
   #restbar.show{display:flex}
   .restinner{pointer-events:auto;max-width:var(--maxw);width:calc(100% - 24px);margin:0 12px 8px;
-    background:linear-gradient(135deg,#161a33,#241634);border:1px solid var(--accent);border-radius:14px;
+    background:linear-gradient(135deg,#1d2730,#212a2a);border:1px solid var(--accent);border-radius:14px;
     padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
   .restinner .rt{font-size:22px;font-weight:800;color:var(--accent2);min-width:64px;font-variant-numeric:tabular-nums}
   .restinner .rl{font-size:11px;color:var(--muted);flex:1;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
-  .restinner button{background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 11px;font-size:13px;font-weight:700;cursor:pointer}
+  .restinner button{background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer}
   .restinner button.skip{background:none;border-color:var(--accent);color:var(--accent2)}
 
   /* SHEET */
@@ -172,18 +185,18 @@
   .sheethandle{width:40px;height:4px;background:var(--line);border-radius:2px;margin:8px auto 8px}
   .sheet-title{font-size:16px;font-weight:800;margin:2px 2px 12px}
   .wk-opt{display:flex;gap:12px;align-items:flex-start;padding:13px;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;cursor:pointer;background:var(--card)}
-  .wk-opt.on{border-color:var(--accent);background:#241526}
+  .wk-opt.on{border-color:var(--accent);background:#1d2a27}
   .wk-opt .ico{font-size:22px;line-height:1.2}
   .wk-opt .nm{font-weight:750;font-size:15px}
   .wk-opt .ds{font-size:12px;color:var(--muted2);margin-top:2px}
   .wk-opt .meta{font-size:11px;color:var(--muted2);margin-top:4px}
   .wk-opt .ck{margin-left:auto;color:var(--accent2);font-weight:800;font-size:18px}
 
-  .coachhero{background:linear-gradient(135deg,#241526,#161a33);border:1px solid var(--accent);border-radius:18px;padding:16px;margin-bottom:14px}
+  .coachhero{background:linear-gradient(135deg,#1d2a27,#1c2730);border:1px solid var(--accent);border-radius:18px;padding:16px;margin-bottom:14px}
   .ch-label{font-size:11px;letter-spacing:1px;color:var(--accent2);font-weight:800}
   .ch-reason{font-size:13px;color:var(--muted);margin:8px 0 11px;line-height:1.45}
   .ch-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-  .ch-ico{font-size:34px} .ch-name{font-size:22px;font-weight:800}
+  .ch-ico{font-size:34px} .ch-name{font-size:22px;font-weight:650}
   .coachhero.chdone{border-color:var(--good)}
   .ch-donerow{display:flex;align-items:center;gap:11px;margin:8px 0}
   .ch-donecheck{width:26px;height:26px;border-radius:50%;background:var(--good);color:#06241a;display:grid;place-items:center;font-weight:800;font-size:15px;flex-shrink:0}
@@ -203,7 +216,7 @@
   .ins-row:last-child{border-bottom:none} .ins-ic{font-size:16px}
   .bodymap{width:100%;max-width:300px;display:block;margin:6px auto 0}
   .bm-legend{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:6px;font-size:10.5px;color:var(--muted2)}
-  .bm-grad{width:120px;height:7px;border-radius:99px;background:linear-gradient(90deg,rgba(255,93,158,.16),#ff5d9e)}
+  .bm-grad{width:120px;height:7px;border-radius:99px;background:linear-gradient(90deg,rgba(111,182,166,.16),#6fb6a6)}
   #celebrate{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;overflow:hidden}
   #celebrate.show{display:flex}
   .cele-scrim{position:absolute;inset:0;background:rgba(0,0,0,.62)}
@@ -212,7 +225,7 @@
     animation:celePop .35s cubic-bezier(.2,1.3,.4,1)}
   @keyframes celePop{0%{transform:scale(.82);opacity:0}100%{transform:scale(1);opacity:1}}
   .cele-emoji{font-size:46px}
-  .cele-title{font-size:22px;font-weight:850;margin:6px 0 14px;
+  .cele-title{font-size:22px;font-weight:700;margin:6px 0 14px;
     background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .cele-body{margin-bottom:18px}
   .cele-ex{margin-bottom:12px;font-size:14px;color:var(--text);line-height:1.5}
@@ -232,7 +245,7 @@
   .builder-foot{padding:10px 16px max(12px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg)}
   .lib-group{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--accent2);font-weight:800;margin:14px 2px 8px}
   .lib-row{display:flex;align-items:center;gap:12px;padding:11px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer;background:var(--card)}
-  .lib-row.on{border-color:var(--accent);background:#241526}
+  .lib-row.on{border-color:var(--accent);background:#1d2a27}
   .lib-check{width:24px;height:24px;border-radius:7px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:14px;color:transparent;flex-shrink:0}
   .lib-row.on .lib-check{background:var(--accent);border-color:var(--accent);color:#fff}
   .lib-info{flex:1;min-width:0}
@@ -251,7 +264,7 @@
   .mng-ex{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);padding:7px 0;border-bottom:1px solid var(--line)}
   .mng-ex button{background:none;border:none;color:var(--bad);font-size:16px;cursor:pointer}
   .settoggle{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted2);margin:10px 2px 0;flex-wrap:wrap}
-  .seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
   .seg button{background:var(--bg2);border:none;color:var(--muted);padding:6px 11px;font-size:12.5px;cursor:pointer;font-weight:700}
   .seg button.on{background:var(--accent);color:#fff}
 </style>
@@ -260,7 +273,17 @@
 
 <header>
   <div class="brand">
-    <div class="logo">💪</div>
+    <div class="logo"><svg viewBox="0 0 100 100" aria-hidden="true">
+      <defs><linearGradient id="lglogo" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#6fb6a6"/><stop offset="1" stop-color="#86acd2"/></linearGradient></defs>
+      <rect width="100" height="100" fill="url(#lglogo)"/>
+      <g fill="#fff">
+        <rect x="31" y="45.5" width="38" height="9" rx="4.5"/>
+        <rect x="23.5" y="32.5" width="11" height="35" rx="4"/>
+        <rect x="65.5" y="32.5" width="11" height="35" rx="4"/>
+        <rect x="16.5" y="37.5" width="8" height="25" rx="3.2"/>
+        <rect x="75.5" y="37.5" width="8" height="25" rx="3.2"/>
+      </g></svg></div>
     <div><h1>Muscle Time</h1><div class="sub" id="brandSub">Log every set · track every week</div></div>
   </div>
 </header>
@@ -271,11 +294,14 @@
 
   <!-- WORKOUT -->
   <section id="tab-workout">
+    <div class="wktoolbar">
     <button class="wkbtn" id="wkBtn">
       <span class="ico" id="wkIco">💪</span>
       <span class="wkmid"><span class="nm" id="wkName">Workout</span><span class="sub2" id="wkSub">Tap to change workout</span></span>
       <span class="chev">CHANGE ▾</span>
     </button>
+    <div id="wkProgWrap"></div>
+    </div>
     <div id="exList"></div>
 
     <details class="mng">
@@ -598,11 +624,12 @@ function renderWorkout(){
   document.getElementById("wkName").textContent=w.name;
   document.getElementById("wkSub").textContent=(w.desc||"Tap to change workout");
   document.getElementById("brandSub").textContent=w.name+" · log every set";
+  var pw=document.getElementById("wkProgWrap");pw.innerHTML="";
   var host=document.getElementById("exList");host.innerHTML="";
   if(!w.ex.length){host.innerHTML='<div class="empty"><div class="big">✏️</div>No exercises yet.<br>Add some below.</div>';renderManageList();renderRestSeg();return;}
   var sp=document.createElement("div");sp.className="sessprog";
   sp.innerHTML='<div class="sp-top"><span id="spText">0 / 0 sets done</span><span id="spPct">0%</span></div><div class="sp-bar"><div class="sp-fill" id="spFill"></div></div>';
-  host.appendChild(sp);
+  pw.appendChild(sp);
   var groups={};w.ex.forEach(function(e){(groups[e.group]=groups[e.group]||[]).push(e);});
   Object.keys(groups).forEach(function(g){var gh=document.createElement("div");gh.className="grouphdr";
     gh.innerHTML='<span>'+g+'</span><div class="ln"></div>';host.appendChild(gh);
@@ -649,8 +676,8 @@ function exCard(ex){
     ir.addEventListener("input",function(){st.r=ir.value===""?"":parseInt(ir.value,10);save(K_CUR,current);});
     var ur=document.createElement("span");ur.className="unit";ur.textContent=timed?"sec":"reps";
     rw.appendChild(ir);rw.appendChild(ur);row.appendChild(rw);
-    var bd=document.createElement("div");bd.className="done"+(st.done?" on":"");bd.textContent=st.done?"✓":"○";
-    bd.addEventListener("click",function(){st.done=!st.done;bd.className="done"+(st.done?" on":"");bd.textContent=st.done?"✓":"○";save(K_CUR,current);
+    var bd=document.createElement("div");bd.className="done"+(st.done?" on":"");bd.textContent=st.done?"✓":"";
+    bd.addEventListener("click",function(){st.done=!st.done;bd.className="done"+(st.done?" on":"");bd.textContent=st.done?"✓":"";save(K_CUR,current);
       if(st.done){startRest(settings.rest);if(navigator.vibrate)navigator.vibrate(30);}refreshCard();updateProgress();});
     if(timed){
       var sb=document.createElement("button");sb.className="startbtn";sb.textContent="▶ Start";
@@ -787,8 +814,8 @@ function renderBody(){var host=document.getElementById("bodyBody");host.innerHTM
   form.appendChild(btn);host.appendChild(form);
   var wPts=sorted.filter(function(b){return b.weight!=null;}).map(function(b){return {label:shortDate(b.date),v:b.weight};});
   var waistPts=sorted.filter(function(b){return b.waist!=null;}).map(function(b){return {label:shortDate(b.date),v:b.waist};});
-  if(wPts.length)host.appendChild(chartCard("Bodyweight trend","kg over time — aim for slow, steady",lineChart(wPts,"#ff5d9e")));
-  if(waistPts.length)host.appendChild(chartCard("Waist trend","cm over time — the recomp signal",lineChart(waistPts,"#6aa8ff")));
+  if(wPts.length)host.appendChild(chartCard("Bodyweight trend","kg over time — aim for slow, steady",lineChart(wPts,"#6fb6a6")));
+  if(waistPts.length)host.appendChild(chartCard("Waist trend","cm over time — the recomp signal",lineChart(waistPts,"#86acd2")));
   var c=document.createElement("div");c.className="chartcard";
   c.innerHTML='<div class="ct">The recomp signal</div><div class="cs" style="margin:0">You\'re after weight roughly steady (or slightly up) while waist holds or shrinks — that means muscle up, fat down. Weigh + measure ~once a week, same time of day.</div>';
   host.appendChild(c);
@@ -820,7 +847,7 @@ function renderStats(){var host=document.getElementById("statsBody");host.innerH
   pw.appendChild(pick);var pc=document.createElement("div");pw.appendChild(pc);
   function drawProg(){var id=pick.value,pts=[];sessions.forEach(function(s){var e=s.exercises.find(function(x){return x.id===id;});
     if(e)pts.push({label:shortDate(s.date),v:e.sets.reduce(function(m,x){return Math.max(m,x.w);},0)});});
-    pc.innerHTML="";pc.appendChild(lineChart(pts,"#6aa8ff"));}
+    pc.innerHTML="";pc.appendChild(lineChart(pts,"#86acd2"));}
   pick.addEventListener("change",drawProg);drawProg();host.appendChild(pw);
   var prCard=document.createElement("div");prCard.className="chartcard";
   prCard.innerHTML='<div class="ct">Personal records</div><div class="cs">Heaviest weight logged per exercise</div>';
@@ -842,9 +869,9 @@ function barChart(data,integer){var W=320,H=150,pl=8,pr=8,pt=10,pb=22;
     if(d.v){var t=el("text",{x:x+bar/2,y:y-3,"text-anchor":"middle","font-size":"8.5"});t.textContent=integer?d.v:fmtNum(d.v);svg.appendChild(t);}
     var lb=el("text",{x:x+bar/2,y:H-7,"text-anchor":"middle"});lb.textContent=d.label;svg.appendChild(lb);});
   var defs=el("defs",{});var lg=el("linearGradient",{id:"g1",x1:"0",y1:"0",x2:"0",y2:"1"});
-  lg.appendChild(el("stop",{offset:"0","stop-color":"#6aa8ff"}));lg.appendChild(el("stop",{offset:"1","stop-color":"#ff5d9e"}));
+  lg.appendChild(el("stop",{offset:"0","stop-color":"#86acd2"}));lg.appendChild(el("stop",{offset:"1","stop-color":"#6fb6a6"}));
   defs.appendChild(lg);svg.appendChild(defs);return svg;}
-function lineChart(data,color){color=color||"#6aa8ff";var W=320,H=160,pl=26,pr=10,pt=12,pb=22;
+function lineChart(data,color){color=color||"#86acd2";var W=320,H=160,pl=26,pr=10,pt=12,pb=22;
   var svg=el("svg",{class:"chart",viewBox:"0 0 "+W+" "+H});
   if(!data.length){var t=el("text",{x:W/2,y:H/2,"text-anchor":"middle"});t.textContent="No data";svg.appendChild(t);return svg;}
   var vals=data.map(function(d){return d.v;});var max=Math.max.apply(null,vals),min=Math.min.apply(null,vals);
@@ -912,16 +939,16 @@ function coachInsights(){
 function renderBodyMap(){
   var bal=muscleBalance(14),maxv=Math.max(1,bal.Legs,bal.Push,bal.Pull,bal.Arms,bal.Core);
   function op(g){return Math.round((0.10+0.90*(bal[g]/maxv))*100)/100;}
-  var svg=el("svg",{viewBox:"0 0 300 286",class:"bodymap"}),PINK="#ff5d9e";
+  var svg=el("svg",{viewBox:"0 0 300 286",class:"bodymap"}),PINK="#6fb6a6";
   var defs=el("defs",{});
   var grad=el("linearGradient",{id:"bodyg",x1:"0",y1:"0",x2:"0",y2:"1"});
-  grad.appendChild(el("stop",{offset:"0","stop-color":"#2b3242"}));grad.appendChild(el("stop",{offset:"1","stop-color":"#1f2430"}));
+  grad.appendChild(el("stop",{offset:"0","stop-color":"#2a322f"}));grad.appendChild(el("stop",{offset:"1","stop-color":"#1d2327"}));
   defs.appendChild(grad);
   var flt=el("filter",{id:"mglow",x:"-50%",y:"-50%",width:"200%",height:"200%"});
   flt.appendChild(el("feGaussianBlur",{stdDeviation:"2.4"}));defs.appendChild(flt);
   svg.appendChild(defs);
   /* connected, tapered silhouette */
-  function base(ox){var g=el("g",{transform:"translate("+ox+",0)",fill:"url(#bodyg)",stroke:"#3a4254","stroke-width":"1","stroke-linejoin":"round"});
+  function base(ox){var g=el("g",{transform:"translate("+ox+",0)",fill:"url(#bodyg)",stroke:"#39423f","stroke-width":"1","stroke-linejoin":"round"});
     g.appendChild(el("ellipse",{cx:55,cy:19,rx:12,ry:14}));
     g.appendChild(el("path",{d:"M50,31 L60,31 L61,43 L49,43 Z"}));
     g.appendChild(el("path",{d:"M30,55 C29,46 35,42 44,42 L66,42 C75,42 81,46 80,55 L75,92 C74,106 70,114 64,120 L46,120 C40,114 36,106 35,92 Z"}));
@@ -958,7 +985,7 @@ function renderCoach(){
   var host=document.getElementById("coachBody");host.innerHTML="";
   var h=new Date().getHours(),greet=h<12?"Good morning":h<18?"Good afternoon":"Good evening";
   var intro=document.createElement("div");intro.style.cssText="margin:6px 2px 14px";
-  intro.innerHTML='<div style="font-size:13px;color:var(--muted2)">'+greet+' 👋</div><div style="font-size:21px;font-weight:800;margin-top:2px">Your coach</div>';
+  intro.innerHTML='<div style="font-size:13px;color:var(--muted2)">'+greet+'</div><div style="font-size:21px;font-weight:600;margin-top:2px;letter-spacing:.2px">Your coach</div>';
   host.appendChild(intro);
   var rec=recommendWorkout(),w=wkById(rec.wkId);
   var pick=document.createElement("div");pick.className="coachhero";
@@ -985,7 +1012,7 @@ function renderCoach(){
     '<div class="sp-bar" style="margin-top:8px"><div class="sp-fill" style="width:'+pctW+'%"></div></div>';
   host.appendChild(wk);
   var mapCard=document.createElement("div");mapCard.className="chcard";
-  mapCard.innerHTML='<div class="chc-top"><span>Muscle map</span><span class="chc-sub">last 14 days · pink = trained</span></div>';
+  mapCard.innerHTML='<div class="chc-top"><span>Muscle map</span><span class="chc-sub">last 14 days · brighter = more</span></div>';
   mapCard.appendChild(renderBodyMap());
   mapCard.insertAdjacentHTML("beforeend",'<div class="bm-legend"><span>Less</span><div class="bm-grad"></div><span>More</span></div>');
   host.appendChild(mapCard);
@@ -1013,7 +1040,7 @@ function showCelebration(ms){
       (m.w>0?("You maxed your reps at "+m.w+"kg — time to go heavier! ⬆"):"You smashed the rep target — make it harder! 🔥");
     return '<div class="cele-ex"><b>'+m.name+'</b><br><span>'+msg+'</span></div>';}).join("");
   var ov=document.getElementById("celebrate");ov.classList.add("show");
-  var colors=["#ff5d9e","#6aa8ff","#b985ff","#5ad1ff","#ffffff"];
+  var colors=["#6fb6a6","#86acd2","#b9aed8","#dcc79a","#ffffff"];
   for(var i=0;i<42;i++){var c=document.createElement("div");c.className="confetti";
     c.style.left=Math.random()*100+"%";c.style.background=colors[i%colors.length];
     c.style.animationDuration=(1.6+Math.random()*1.8)+"s";c.style.animationDelay=(Math.random()*.5)+"s";
@@ -1038,6 +1065,8 @@ document.getElementById("addExBtn").addEventListener("click",function(){var nm=d
   activeWk().ex.push({id:uid(),group:g,name:nm,sets:3,reps:"12",w:0,note:""});save(K_WK,workouts);
   document.getElementById("newExName").value="";renderWorkout();toast("Added "+nm);});
 
+function setHeadH(){var h=document.querySelector("header").offsetHeight;document.documentElement.style.setProperty("--headh",h+"px");}
+setHeadH();window.addEventListener("resize",setHeadH);
 renderWorkout();setTab("coach"); /* land on the Coach dashboard */
 })();
 </script>
