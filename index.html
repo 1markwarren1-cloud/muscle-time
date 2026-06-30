@@ -27,9 +27,11 @@
   html,body{margin:0; padding:0}
   body{background:var(--bg); color:var(--text);
     font-family:"Raleway",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    padding-bottom:150px; line-height:1.55; letter-spacing:.1px; -webkit-font-smoothing:antialiased;}
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 16px}
-  header{position:sticky; top:0; z-index:20; background:var(--bg);
+    line-height:1.55; letter-spacing:.1px; -webkit-font-smoothing:antialiased;
+    height:100vh; height:100dvh; display:flex; flex-direction:column; overflow:hidden;}
+  .wrap{max-width:var(--maxw); width:100%; margin:0 auto; align-self:center; padding:0 16px 22px;
+    flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch}
+  header{flex:0 0 auto; z-index:20; background:var(--bg);
     padding:max(14px,env(safe-area-inset-top)) 0 8px;}
   .brand{display:flex; align-items:center; gap:10px; padding:0 16px; max-width:var(--maxw); margin:0 auto}
   .logo{width:30px;height:30px;border-radius:9px;overflow:hidden;flex-shrink:0}
@@ -43,7 +45,7 @@
 
   .wkbtn{width:100%;display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--line);
     color:var(--text);border-radius:18px;padding:13px 15px;cursor:pointer;margin:2px 0 12px}
-  .wktoolbar{position:sticky;top:var(--headh,60px);z-index:15;background:var(--bg);padding-top:6px}
+  .wktoolbar{position:sticky;top:0;z-index:15;background:var(--bg);padding-top:6px}
   .wktoolbar .sessprog{margin-bottom:12px}
   .wkbtn .ico{font-size:22px} .wkbtn .wkmid{flex:1;min-width:0;text-align:left}
   .wkbtn .nm{display:block;font-weight:750;font-size:16px}
@@ -159,7 +161,7 @@
   .weekcard ul{margin:0;padding-left:18px}
   .weekcard li{font-size:12.5px;color:var(--muted);margin-bottom:3px}
 
-  nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(21,23,30,.93);backdrop-filter:blur(12px);
+  nav{flex:0 0 auto;z-index:30;background:rgba(21,25,28,.96);backdrop-filter:blur(12px);
     border-top:1px solid var(--line);display:flex;padding:6px 2px max(6px,env(safe-area-inset-bottom))}
   nav button{flex:1;background:none;border:none;color:var(--muted2);padding:8px 0 6px;font-size:9.5px;cursor:pointer;
     display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:600}
@@ -396,9 +398,9 @@ var DEFAULT_WORKOUTS=[
    desc:"Legs, push, pull & core in one go. Best when you only have time for a single session.",
    ex:[
     {id:"fb_sq",  group:"Legs", name:"Goblet Squat", sets:3, reps:"12", w:14, note:"KB at chest · 3s down"},
-    {id:"fb_fp",  group:"Push", name:"DB Floor Press", sets:3, reps:"12", w:10, note:"Lying on floor · slow"},
+    {id:"fb_fp",  group:"Push", name:"DB Floor Press", sets:3, reps:"12", w:10, note:"Lie on back · press DBs up · lower to floor"},
     {id:"fb_row", group:"Pull", name:"One-arm DB Row", sets:3, reps:"12 / arm", w:10, note:"Braced on chair"},
-    {id:"fb_rdl", group:"Legs", name:"KB Romanian Deadlift", sets:3, reps:"12", w:24, note:"Both KBs · hinge"},
+    {id:"fb_rdl", group:"Legs", name:"KB Romanian Deadlift", sets:3, reps:"12", w:24, note:"Both KBs · push hips back, soft knees"},
     {id:"fb_ohp", group:"Push", name:"DB Overhead Press", sets:3, reps:"12", w:10, note:"Standing · brace core"},
     {id:"fb_curl",group:"Arms", name:"Biceps Curl", sets:2, reps:"12", w:10, note:"Slow lower"},
     {id:"fb_plk", group:"Core", name:"Plank", sets:3, reps:"45s", w:0, note:"Brace hard"}
@@ -407,11 +409,11 @@ var DEFAULT_WORKOUTS=[
    desc:"Chest, shoulders & triceps. Push-ups, floor presses and overhead work.",
    ex:[
     {id:"pu_push",group:"Chest", name:"Push-ups", sets:4, reps:"max", w:0, note:"Elevate feet to make harder"},
-    {id:"pu_fp",  group:"Chest", name:"DB Floor Press", sets:4, reps:"12", w:10, note:"Pause chest at floor"},
+    {id:"pu_fp",  group:"Chest", name:"DB Floor Press", sets:4, reps:"12", w:10, note:"Lower until arms touch floor · pause 1s"},
     {id:"pu_ohp", group:"Shoulders", name:"DB Overhead Press", sets:4, reps:"12", w:10, note:"Standing · strict"},
     {id:"pu_lat", group:"Shoulders", name:"DB Lateral Raise", sets:3, reps:"15", w:6, note:"Light · no swing"},
     {id:"pu_oht", group:"Triceps", name:"KB Overhead Triceps Ext.", sets:3, reps:"12", w:14, note:"Both hands · full stretch"},
-    {id:"pu_sat", group:"Triceps", name:"Single-arm Triceps Ext.", sets:2, reps:"15 / arm", w:6, note:"Strict"}
+    {id:"pu_sat", group:"Triceps", name:"Single-arm Triceps Ext.", sets:2, reps:"15 / arm", w:6, note:"No swinging · slow"}
    ]},
   {id:"pull", name:"Pull Day", icon:"🪝",
    desc:"Back & biceps. Rows, pull-ups and curls for a wider back and bigger arms.",
@@ -421,7 +423,7 @@ var DEFAULT_WORKOUTS=[
     {id:"kbrow",  group:"Back", name:"KB Bent-over Row", sets:3, reps:"12", w:24, note:"Both KBs · pull to hips"},
     {id:"highpull",group:"Back",name:"KB High Pull", sets:3, reps:"12", w:14, note:"Explosive up · control down"},
     {id:"shrug",  group:"Back", name:"DB Shrug", sets:3, reps:"15", w:10, note:"Pause at top · traps"},
-    {id:"reardelt",group:"Back",name:"Rear Delt Fly", sets:3, reps:"15", w:6, note:"Bent over · squeeze blades"},
+    {id:"reardelt",group:"Back",name:"Rear Delt Fly", sets:3, reps:"15", w:6, note:"Bent over · squeeze shoulder blades"},
     {id:"curl2",  group:"Arms", name:"Biceps Curl", sets:3, reps:"12", w:10, note:"3s lower"},
     {id:"hammer2",group:"Arms", name:"Hammer Curl", sets:3, reps:"12", w:10, note:"Palms in"}
    ]},
@@ -446,7 +448,7 @@ var DEFAULT_WORKOUTS=[
     {id:"curl",   group:"Arms", name:"Biceps Curl", sets:3, reps:"12", w:10, note:"3s lower · no swing"},
     {id:"oht",    group:"Arms", name:"KB Overhead Triceps Ext.", sets:3, reps:"12", w:14, note:"Full stretch"},
     {id:"hammer", group:"Arms", name:"Hammer Curl", sets:3, reps:"12", w:10, note:"Palms in"},
-    {id:"saoht",  group:"Arms", name:"Single-arm Triceps Ext.", sets:2, reps:"15 / arm", w:6, note:"Strict"},
+    {id:"saoht",  group:"Arms", name:"Single-arm Triceps Ext.", sets:2, reps:"15 / arm", w:6, note:"No swinging · slow"},
     {id:"burn",   group:"Arms", name:"Curl Burnout", sets:1, reps:"max", w:6, note:"Near-failure · clean"}
    ]},
   {id:"core", name:"Core & Abs", icon:"🎯",
@@ -464,7 +466,8 @@ var DEFAULT_WORKOUTS=[
 var workouts=load(K_WK,null);
 if(!workouts){workouts=JSON.parse(JSON.stringify(DEFAULT_WORKOUTS));}
 else{DEFAULT_WORKOUTS.forEach(function(dw){var e=workouts.find(function(w){return w.id===dw.id;});
-  if(!e)workouts.push(JSON.parse(JSON.stringify(dw)));else{if(!e.desc)e.desc=dw.desc;if(!e.icon)e.icon=dw.icon;}});}
+  if(!e)workouts.push(JSON.parse(JSON.stringify(dw)));else{if(!e.desc)e.desc=dw.desc;if(!e.icon)e.icon=dw.icon;
+    dw.ex.forEach(function(dex){var ux=e.ex.find(function(x){return x.id===dex.id;});if(ux)ux.note=dex.note;});}});}
 save(K_WK,workouts);
 var sessions=load(K_SESS,[]);
 var current=load(K_CUR,{});
@@ -558,7 +561,7 @@ function openSheet(){
   document.getElementById("sheet").classList.add("show");
 }
 function closeSheet(){document.getElementById("sheet").classList.remove("show");}
-function selectWorkout(id){settings.activeWk=id;save(K_SET,settings);closeSheet();renderWorkout();window.scrollTo(0,0);}
+function selectWorkout(id){settings.activeWk=id;save(K_SET,settings);closeSheet();renderWorkout();document.querySelector("main").scrollTo(0,0);}
 document.getElementById("wkBtn").addEventListener("click",openSheet);
 document.getElementById("sheetScrim").addEventListener("click",closeSheet);
 /* CUSTOM WORKOUT BUILDER */
@@ -825,7 +828,7 @@ function renderBody(){var host=document.getElementById("bodyBody");host.innerHTM
 function isoWeek(d){var dt=new Date(d.getTime());dt.setHours(0,0,0,0);dt.setDate(dt.getDate()+3-((dt.getDay()+6)%7));
   var w1=new Date(dt.getFullYear(),0,4);return dt.getFullYear()+"-W"+String(1+Math.round(((dt-w1)/86400000-3+((w1.getDay()+6)%7))/7)).padStart(2,"0");}
 function renderStats(){var host=document.getElementById("statsBody");host.innerHTML="";
-  if(!sessions.length){host.innerHTML='<div class="empty"><div class="big">📈</div>No data yet.<br>Save a few workouts to unlock analytics.</div>';return;}
+  if(!sessions.length){host.innerHTML='<div class="empty"><div class="big">📈</div>No data yet.<br>Save a workout to unlock analytics — or restore a backup below.</div>';host.appendChild(makeExport());return;}
   var totalVol=sessions.reduce(function(a,s){return a+sessionVolume(s);},0);
   var totalSets=sessions.reduce(function(a,s){var n=0;s.exercises.forEach(function(e){n+=e.sets.length;});return a+n;},0);
   var weeks={};sessions.forEach(function(s){var w=isoWeek(new Date(s.date+"T00:00:00"));weeks[w]=(weeks[w]||0)+1;});
@@ -1055,7 +1058,7 @@ document.getElementById("celeScrim").addEventListener("click",closeCelebration);
 /* TABS */
 function setTab(t){["coach","workout","plan","history","body","stats"].forEach(function(x){document.getElementById("tab-"+x).classList.toggle("hide",x!==t);});
   document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.tab===t);});
-  if(t==="coach")renderCoach();if(t==="plan")renderPlan();if(t==="history")renderHistory();if(t==="body")renderBody();if(t==="stats")renderStats();window.scrollTo(0,0);}
+  if(t==="coach")renderCoach();if(t==="plan")renderPlan();if(t==="history")renderHistory();if(t==="body")renderBody();if(t==="stats")renderStats();document.querySelector("main").scrollTo(0,0);}
 document.querySelectorAll("nav button").forEach(function(b){b.addEventListener("click",function(){setTab(b.dataset.tab);});});
 document.getElementById("finishBtn").addEventListener("click",finishWorkout);
 document.getElementById("resetBtn").addEventListener("click",function(){if(confirm("Clear all entries for this workout today?")){
